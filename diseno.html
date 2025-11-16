@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VillaLuz Admin Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        /* Definimos el color primario personalizado */
+        :root {
+            --primary-color: #1A4EF9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; /* Usando la fuente Inter, común en dashboards */
+            background-color: #f8f9fa; /* Un fondo gris claro para el contenido */
+        }
+
+        /* Estilos para la barra lateral (aside) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100; 
+            padding: 48px 0 0; /* Padding superior para dejar espacio al header (si tuviéramos uno fijo) */
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+            width: 240px;
+            background-color: var(--primary-color); /* Color principal solicitado */
+        }
+
+        /* Estilos para el logo o título del dashboard en la barra lateral */
+        .sidebar-header {
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+
+        .sidebar-header a {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Estilos para los enlaces de navegación de la barra lateral */
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8); /* Color de texto semi-transparente */
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link .bi {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            line-height: 1; /* Para alinear mejor el ícono */
+        }
+
+        /* Estado hover (cursor encima) */
+        .sidebar .nav-link:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1); /* Un sutil resaltado */
+            border-radius: 5px; /* Bordes redondeados en el hover */
+        }
+
+        /* Estado activo (página actual) */
+        .sidebar .nav-link.active {
+            color: var(--primary-color); /* Texto del color primario */
+            background-color: #fff; /* Fondo blanco */
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        /* Estilos para el contenido principal */
+        .main-content {
+            margin-left: 240px; /* Mismo ancho que la barra lateral */
+            padding: 2rem;
+        }
+
+        /* Header simple para el contenido principal */
+        .header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+
+        /* Tarjeta de bienvenida */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary-color), #4e85f5);
+            color: white;
+            border: none;
+        }
+        
+        /* Media query para dispositivos móviles */
+        @media (max-width: 767.98px) {
+            .sidebar {
+                /* En móvil, la barra podría ocultarse o tener un ancho completo */
+                /* Por simplicidad, la dejaremos fija, pero esto se puede cambiar a un offcanvas */
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 0;
+            }
+            
+            .sidebar .nav {
+                flex-direction: row !important; /* Hacemos la navegación horizontal */
+                justify-content: space-around; /* Distribuimos los ítems */
+            }
+
+            .sidebar-header {
+                display: none; /* Ocultamos el header en móvil */
+            }
+
+            .sidebar .nav-link {
+                padding: 1rem 0.5rem;
+                justify-content: center;
+            }
+            
+            .sidebar .nav-link .bi {
+                margin-right: 0.25rem; /* Menos margen en móvil */
+            }
+            
+            .sidebar .nav-link span {
+                display: none; /* Ocultamos el texto y dejamos solo el ícono en móvil */
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ASIDE - Barra Lateral -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="#">AdminPanel</a>
+        </div>
+        
+        <!-- Contenedor para los enlaces de navegación -->
+        <ul class="nav flex-column p-3">
+            <li class="nav-item mb-1">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-person-fill-gear"></i>
+                    <span>Administrar usuarios</span>
+                </a>
+            </li>
+            <li class="nav-item mb-1">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-box-seam-fill"></i>
+                    <span>Inventario</span>
+                </a>
+            </li>
+            <li class="nav-item mb-1">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Reservas</span>
+                </a>
+            </li>
+            <li class="nav-item mb-1">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-columns-gap"></i> <!-- Ícono que puede simular canchas -->
+                    <span>Canchas</span>
+                </a>
+            </li>
+            <hr class="text-white-50">
+            <li class="nav-item mb-1">
+                <a class="nav-link" href="{% url 'logout_admin' %}">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <!-- Header del contenido -->
+        <header class="header">
+            <h1 class="h3 mb-0">VillaLuz Admin</h1>
+        </header>
+
+        <!-- Tarjeta de Bienvenida -->
+        <div class="card welcome-card shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h4 class="card-title">¡Bienvenido de nuevo, {{nombre}}!</h4>
+                <p class="card-text">Desde aquí puedes gestionar todas las secciones de tu aplicación. Selecciona una opción de la barra lateral para comenzar.</p>
+            </div>
+        </div>
+
+        <!-- Contenido de ejemplo (Tarjetas) -->
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card text-bg-primary shadow-sm" style="background-color: var(--primary-color) !important;">
+                    <div class="card-body">
+                        <h5 class="card-title">Usuarios Activos</h5>
+                        <p class="card-text fs-3 fw-bold">150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card text-bg-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservas Hoy</h5>
+                        <p class="card-text fs-3 fw-bold">32</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card text-bg-warning shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Inventario Bajo</h5>
+                        <p class="card-text fs-3 fw-bold">4 Items</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card text-bg-info shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Canchas Libres</h5>
+                        <p class="card-text fs-3 fw-bold">2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de ejemplo -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">Últimas Reservas</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col"># ID</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Cancha</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1024</th>
+                                <td>Juan Pérez</td>
+                                <td>Fútbol 5 (Cancha 1)</td>
+                                <td>13/11/2025 - 20:00</td>
+                                <td><span class="badge text-bg-success">Confirmada</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1025</th>
+                                <td>Ana Gómez</td>
+                                <td>Pádel (Cancha 3)</td>
+                                <td>13/11/2025 - 21:00</td>
+                                <td><span class="badge text-bg-success">Confirmada</span></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">1026</th>
+                                <td>Carlos Ruiz</td>
+                                <td>Fútbol 5 (Cancha 1)</td>
+                                <td>14/11/2025 - 19:00</td>
+                                <td><span class="badge text-bg-warning">Pendiente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+</body>
+</html>
